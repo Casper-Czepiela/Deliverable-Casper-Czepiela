@@ -1,41 +1,44 @@
-/**
- * SYST 17796 Project Base code.
- * Students can modify and extend to implement their game.
- * Add your name as an author and the date!
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package ca.sheridancollege.project;
 
-/**
- * A class to be used as the base Card class for the project. Must be general enough to be instantiated for any Card
- * game. Students wishing to add to the code should remember to add themselves as a modifier.
- *
- * @author dancye
- * @author Megha Patel
- */
-public abstract class Card {
-    //default modifier for child classes
-    enum Colour{
-        Red,Blue,Green,Yellow,Wild_Card;
-    private static Colour[] colours = Colour.values();
-    public static Colour getColour(int i)
-    {
-        return Colour.colours[i];
-    }
-    }
-    enum cardValue{
-        Zero,One,Two,Three,Four,Five,Six,Seven,Eight,Nine,DrawTwo,SkipTurn,Reverse,PickFour;
-        private static final cardValue[] cValue = cardValue.values();
-        public static cardValue getCardValue(int i)
-        {
-            return cardValue.cValue[i];
-        }
-    }
-    /**
-     * Students should implement this method for their specific children classes
-     *
-     * @return a String representation of a card. Could be an UNO card, a regular playing card etc.
-     */
-    @Override
-    public abstract String toString();
 
-}
+public class Card {
+    public enum Color { YELLOW, BLUE, GREEN, RED; }
+ 
+    public enum CardValue { ZERO,ONE,TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, 
+                       NINE, PICK_TWO, REVERSE, SKIP, WILD, WILD_FOUR; }
+     
+    CardValue cardValue;
+    Color color;
+    
+ 
+    public Card ( CardValue cardValue, Color color) {
+        this.cardValue = cardValue;
+        this.color = color;
+        
+    }
+     
+    public String toString(){
+        if(cardValue.equals(CardValue.WILD)||cardValue.equals(CardValue.WILD_FOUR)){
+            return cardValue.name();
+        }
+        else{
+        return cardValue.name()+"-"+color.name();
+        }
+        }
+     
+    public boolean canPlay(Card otherCard) {
+         
+        return this.cardValue == otherCard.cardValue || this.color == otherCard.color;
+    }
+     
+  public boolean canPlayColor(Card otherCard) {
+         
+        return this.color == otherCard.color;
+    }
+     
+} 
